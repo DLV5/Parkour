@@ -2,6 +2,7 @@
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
+using Photon.Pun;
 
 namespace StarterAssets
 {
@@ -50,9 +51,12 @@ namespace StarterAssets
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
+        [Tooltip("Need to get a reference for cameras parent gameobject")]
+        public GameObject cameras;
 
-		// cinemachine
-		private float _cinemachineTargetPitch;
+
+        // cinemachine
+        private float _cinemachineTargetPitch;
 
 		// player
 		private float _speed;
@@ -74,6 +78,11 @@ namespace StarterAssets
 
 		private const float _threshold = 0.01f;
 
+
+		//Need to update position in multiplayer
+		private PhotonView _photonView;
+
+
 		private bool IsCurrentDeviceMouse
 		{
 			get
@@ -88,8 +97,9 @@ namespace StarterAssets
 
 		private void Awake()
 		{
-			// get a reference to our main camera
-			if (_mainCamera == null)
+            _photonView = GetComponent<PhotonView>();
+            // get a reference to our main camera
+            if (_mainCamera == null)
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
@@ -97,6 +107,10 @@ namespace StarterAssets
 
 		private void Start()
 		{
+			if(_photonView.IsMine)
+			{
+				cameras.SetActive(true);
+			}
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
@@ -112,6 +126,8 @@ namespace StarterAssets
 
 		private void Update()
 		{
+			if (!_photonView.IsMine)
+				return;
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
@@ -119,7 +135,9 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+            if (!_photonView.IsMine)
+                return;
+            CameraRotation();
 		}
 
 		private void GroundedCheck()
