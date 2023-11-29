@@ -54,6 +54,9 @@ namespace StarterAssets
         [Tooltip("Need to get a reference for cameras parent gameobject")]
         public GameObject cameras;
 
+        [Header("Animations")]
+        [Tooltip("Need to get a reference for animator")]
+        public Animator animator;
 
         // cinemachine
         private float _cinemachineTargetPitch;
@@ -145,7 +148,11 @@ namespace StarterAssets
 			// set sphere position, with offset
 			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
-		}
+			if (Grounded)
+			{
+				animator.SetTrigger("OnTouchedGround");
+            }
+        }
 
 		private void CameraRotation()
 		{
@@ -214,7 +221,10 @@ namespace StarterAssets
 
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-		}
+
+			animator.SetFloat("Speed", currentHorizontalSpeed);
+
+        }
 
 		private void JumpAndGravity()
 		{
@@ -232,6 +242,7 @@ namespace StarterAssets
 				// Jump
 				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
 				{
+					animator.SetTrigger("OnJump");
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 				}
