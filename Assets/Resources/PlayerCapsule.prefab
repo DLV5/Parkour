@@ -173,11 +173,13 @@ GameObject:
   - component: {fileID: 8997996947095583982}
   - component: {fileID: 8616685848737228382}
   - component: {fileID: 8616685848737228371}
+  - component: {fileID: 8903733204398114729}
   - component: {fileID: 1978471637655604388}
   - component: {fileID: 5420857361349278248}
   - component: {fileID: 8616685848737228376}
   - component: {fileID: -289750934752660389}
   - component: {fileID: -2623445691234612269}
+  - component: {fileID: 5614021977712069074}
   m_Layer: 8
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -252,6 +254,18 @@ MonoBehaviour:
   TopClamp: 89
   BottomClamp: -89
   cameras: {fileID: 8096030002279552480}
+--- !u!114 &8903733204398114729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1336848c03cc0f641a1c256194352008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   animator: {fileID: 6534812481738113482}
 --- !u!114 &1978471637655604388
 MonoBehaviour:
@@ -445,6 +459,19 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &5614021977712069074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1336848c03cc0f641a1c256194352008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1001 &2293266407459078456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -728,12 +755,15 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 1
     Name: Speed
-  - Type: 9
+  - Type: 4
     SynchronizeType: 1
-    Name: OnJump
-  - Type: 9
+    Name: IsJumping
+  - Type: 4
     SynchronizeType: 1
-    Name: OnTouchedGround
+    Name: IsFalling
+  - Type: 4
+    SynchronizeType: 1
+    Name: IsGrounded
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

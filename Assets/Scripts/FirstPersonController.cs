@@ -54,9 +54,8 @@ namespace StarterAssets
         [Tooltip("Need to get a reference for cameras parent gameobject")]
         public GameObject cameras;
 
-        [Header("Animations")]
-        [Tooltip("Need to get a reference for animator")]
-        public Animator animator;
+
+        private CharacterAnimations _animator;
 
         // cinemachine
         private float _cinemachineTargetPitch;
@@ -118,6 +117,7 @@ namespace StarterAssets
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 			_playerInput = GetComponent<PlayerInput>();
+			_animator = GetComponent<CharacterAnimations>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -148,10 +148,8 @@ namespace StarterAssets
 			// set sphere position, with offset
 			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
-			if (Grounded)
-			{
-				animator.SetTrigger("OnTouchedGround");
-            }
+
+			_animator.SetIsGrounded(Grounded);
         }
 
 		private void CameraRotation()
@@ -222,7 +220,7 @@ namespace StarterAssets
 			// move the player
 			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
-			animator.SetFloat("Speed", currentHorizontalSpeed);
+			_animator.SetSpeed(currentHorizontalSpeed);
 
         }
 
@@ -242,9 +240,12 @@ namespace StarterAssets
 				// Jump
 				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
 				{
-					animator.SetTrigger("OnJump");
+					_animator.SetIsJumping(true);
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+				} else
+				{
+					_animator.SetIsJumping(false);
 				}
 
 				// jump timeout
@@ -272,7 +273,14 @@ namespace StarterAssets
 			if (_verticalVelocity < _terminalVelocity)
 			{
 				_verticalVelocity += Gravity * Time.deltaTime;
-			}
+				if(_verticalVelocity > 0.2f)
+				{
+					_animator.SetIsFalling(true);
+				} else
+				{
+                    _animator.SetIsFalling(true);
+                }
+            }
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
