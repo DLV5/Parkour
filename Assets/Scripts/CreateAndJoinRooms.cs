@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using Photon.Pun;
 using TMPro;
+using UnityEngine.UI;
 
 public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 {
     public TMP_InputField createInput;
     public TMP_InputField joinInput;
-    
+
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(createInput.text);
@@ -22,6 +19,14 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("Game");
+        if(PhotonNetwork.LocalPlayer.NickName != null)
+        {
+            PhotonNetwork.LoadLevel("Game");
+        }
+    }
+
+    public void SetNickName(string nickName)
+    {
+        PhotonNetwork.LocalPlayer.NickName = nickName;
     }
 }

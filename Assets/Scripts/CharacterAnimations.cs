@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class CharacterAnimations : MonoBehaviour
@@ -5,10 +6,18 @@ public class CharacterAnimations : MonoBehaviour
     [Tooltip("Put animator from model here")]
     public Animator animator;
 
-    // Update is called once per frame
-    void Update()
+    public GameObject model;
+
+    private PhotonView _photonView;
+
+    private void Start()
     {
-       
+        _photonView = GetComponent<PhotonView>();
+
+        if (_photonView.IsMine)
+        {
+            model.layer = LayerMask.NameToLayer("MyCharacter");
+        }
     }
 
     public void SetSpeed(float speed)
