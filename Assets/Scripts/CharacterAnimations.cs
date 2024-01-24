@@ -39,4 +39,8 @@ public class CharacterAnimations : MonoBehaviour
     {
         animator.SetBool("IsFalling", isFalling);
     }
+    public void SetIsDead(bool isDead)
+    {
+        animator.SetBool("IsDead", isDead);
+    }
 }

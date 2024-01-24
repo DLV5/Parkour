@@ -56,6 +56,8 @@ namespace StarterAssets
 
 
         private CharacterAnimations _animator;
+		
+		private PlayerHealth _health;
 
         // cinemachine
         private float _cinemachineTargetPitch;
@@ -65,6 +67,8 @@ namespace StarterAssets
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
+
+		private bool _isAlive = true;
 
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
@@ -122,8 +126,12 @@ namespace StarterAssets
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
 
-			// reset our timeouts on start
-			_jumpTimeoutDelta = JumpTimeout;
+			_health = GetComponent<PlayerHealth>();
+			_health.OnPlayerDied += OnPlayerDied;
+			_health.OnPlayerRevived += OnPlayerRevived;
+
+            // reset our timeouts on start
+            _jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
 		}
 
@@ -131,6 +139,10 @@ namespace StarterAssets
 		{
 			if (!_photonView.IsMine)
 				return;
+
+			if (!_isAlive)
+				return;
+
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
@@ -143,7 +155,20 @@ namespace StarterAssets
             CameraRotation();
 		}
 
-		private void GroundedCheck()
+		private void OnPlayerDied()
+		{
+			_isAlive = false;
+			_animator.SetIsDead(true);
+		}
+
+        private void OnPlayerRevived()
+        {
+            _isAlive = true;
+            _animator.SetIsDead(false);
+        }
+
+
+        private void GroundedCheck()
 		{
 			// set sphere position, with offset
 			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);

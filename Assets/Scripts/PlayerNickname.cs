@@ -7,10 +7,17 @@ public class PlayerNickname : MonoBehaviourPunCallbacks
     public TMP_Text nickname;
     private void Awake()
     {
-        if (photonView.IsMine)
+        try
         {
-            transform.gameObject.SetActive(false); // hiding own nickname
+            if (photonView.IsMine)
+            {
+                transform.gameObject.SetActive(false); // hiding own nickname
+            }
+            nickname.text = photonView.Owner.NickName;
         }
-        nickname.text = photonView.Owner.NickName;
+        catch
+        {
+            UnityEngine.Debug.LogWarning("Player nicknames active only in a online mode");
+        }
     }
 }

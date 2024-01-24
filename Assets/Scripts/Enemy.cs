@@ -1,32 +1,56 @@
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamagable
 {
-    [SerializeField] private int health = 3;
-    [SerializeField] private GameObject agentTarget;
-    private NavMeshAgent agent;
+    public event Action OnDamaged;
 
-    private void Start()
+    [SerializeField] private int _health = 3;
+
+    private GameObject[] _players;
+
+    private NavMeshAgent _agent;
+    private GameObject _agentTarget;
+
+    private void OnEnable()
     {
-        agent = GetComponent<NavMeshAgent>();
+        _agent = transform.parent.GetComponent<NavMeshAgent>();
+        _players = GameObject.FindGameObjectsWithTag("Player");        
     }
 
     private void Update()
     {
-        agent?.SetDestination(agentTarget.transform.position);
+        if (_players.Length != 0)
+        {
+            _agentTarget = _players.OrderBy(x => Vector2.Distance(transform.position, x.transform.position)).FirstOrDefault();
+        }
+        _agent?.SetDestination(_agentTarget.transform.position);
     }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        Debug.Log("Damaged");
-        if(health < 0)
-        {
-            Debug.Log("Destroyed");
+        _health -= damage;
 
-            Destroy(gameObject);
+        OnDamaged?.Invoke();
+
+        if(_health < 0)
+        {
+            gameObject.SetActive(false);
         }
     }
 
+    private void OnTriggerEnter(Collider collider)
+    {
+        Debug.Log("Collided");
+        if (collider.transform.tag != "Enemy" )
+        {
+            IDamagable damagable = collider.gameObject.GetComponent<IDamagable>();
+            if(damagable != null )
+            {
+                damagable.TakeDamage(1);
+            }
+        }
+    }
 }

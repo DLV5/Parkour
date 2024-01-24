@@ -17,13 +17,20 @@ public class Weapon : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = _playerCamera.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+
         animator.SetTrigger("OnShoot");
         _particleSystem.Play();
-        _cameraShaker.ShakeCamera(.3f, .1f);
+        _cameraShaker.ShakeCamera(.6f, .1f);
+
         if (Physics.Raycast(ray, out hit))
         {
+            if(hit.transform.tag == "Player")
+            {
+                return;
+            }
+
             IDamagable damagable = hit.transform.GetComponent<IDamagable>();
-            Debug.Log(damagable);
+
             if (damagable != null)
             {
                 damagable.TakeDamage(1);
