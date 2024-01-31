@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour, IDamagable
     {
         if (_players.Length != 0)
         {
-            _agentTarget = _players.OrderBy(x => Vector2.Distance(transform.position, x.transform.position)).FirstOrDefault();
+            _agentTarget = _players.OrderBy(enemy => Vector2.Distance(transform.position, enemy.transform.position)).FirstOrDefault();
         }
         _agent?.SetDestination(_agentTarget.transform.position);
     }

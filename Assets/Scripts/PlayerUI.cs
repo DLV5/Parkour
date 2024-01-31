@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class PlayerUI : MonoBehaviour
 {
-     [field : SerializeField] public PlayerHealthBar HealthBar { get; private set; }
-     [field : SerializeField] public GameObject DeathScreen { get; private set; }
+    public PlayerHealthBar HealthBar { get; private set; }
+    public GameObject DeathScreen { get; private set; }
 
     private void Awake()
     {

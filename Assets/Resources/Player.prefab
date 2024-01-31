@@ -502,6 +502,7 @@ GameObject:
   - component: {fileID: -289750934752660389}
   - component: {fileID: -2623445691234612269}
   - component: {fileID: 9152938674052397497}
+  - component: {fileID: 5780843268263023633}
   - component: {fileID: 766159846556593455}
   - component: {fileID: 3957307565389449288}
   m_Layer: 8
@@ -792,7 +793,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3995ab341919b6e4c961e8471fbc76ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerCamera: {fileID: 5917077142258499314}
+  _reloadTime: 2
+  <MaxAmmo>k__BackingField: 5
+  <CurrentAmmo>k__BackingField: 0
+--- !u!114 &5780843268263023633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4230386abe0a2f34c858ee58af89e8a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PlayerCamera>k__BackingField: {fileID: 5917077142258499314}
   animator: {fileID: 8226951994498300834}
   _particleSystem: {fileID: 7440689114027453172}
   _impactEffect: {fileID: 3068634425767601647, guid: b64767bf55ad2ae4bbba5a0e3fcd77d4,
@@ -822,8 +838,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66384c0b11d5e694ba18c8f9228b8f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <HealthBar>k__BackingField: {fileID: 0}
-  <DeathScreen>k__BackingField: {fileID: 0}
 --- !u!1001 &2293266407459078456
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class SpawnPlayers : MonoBehaviour
 
     public GameObject playerPrefab;
     //public GameObject cameraPrefab;
-    private PhotonView player;
+    private PhotonView _player;
 
     private static SpawnPlayers _instance;
 
@@ -30,14 +30,14 @@ public class SpawnPlayers : MonoBehaviour
     public void SpawnPlayer()
     {
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.transform.position, Quaternion.identity);
-        //player = player.GetComponent<PhotonView>();
+        _player = player.GetComponent<PhotonView>();
     }
 
     public void RevivePlayer()
     {
-        if(player.IsMine)
+        if(_player.IsMine)
         {
-            player.GetComponent<PlayerHealth>().Revive(spawnPoint.transform.position);
+            _player.GetComponent<PlayerHealth>().Revive(spawnPoint.transform.position);
         }
     }
 }

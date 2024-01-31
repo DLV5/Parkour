@@ -152,18 +152,24 @@ namespace StarterAssets
 		{
             if (!_photonView.IsMine)
                 return;
+
             CameraRotation();
 		}
 
 		private void OnPlayerDied()
 		{
-			_isAlive = false;
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
+			_playerInput.DeactivateInput();
 			_animator.SetIsDead(true);
 		}
 
         private void OnPlayerRevived()
         {
-            _isAlive = true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked	;
+
+            _playerInput.ActivateInput();
             _animator.SetIsDead(false);
         }
 
