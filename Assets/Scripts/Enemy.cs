@@ -8,11 +8,14 @@ public class Enemy : MonoBehaviour, IDamagable
     public event Action OnDamaged;
 
     [SerializeField] private int _health = 3;
+    [SerializeField] private int _moneyValue = 5;
 
     private GameObject[] _players;
 
     private NavMeshAgent _agent;
     private GameObject _agentTarget;
+
+    private PlayerMoney _playerMoney;
 
     private void OnEnable()
     {
@@ -31,14 +34,22 @@ public class Enemy : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
+        _playerMoney = _agentTarget.GetComponent<PlayerMoney>();
+
         _health -= damage;
 
         OnDamaged?.Invoke();
 
-        if(_health < 0)
+        if(_health <= 0)
         {
-            gameObject.SetActive(false);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        gameObject.SetActive(false);
+        _playerMoney.AddMoney(_moneyValue);
     }
 
     private void OnTriggerEnter(Collider collider)

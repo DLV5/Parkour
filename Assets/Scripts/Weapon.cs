@@ -14,14 +14,13 @@ public class Weapon : MonoBehaviour
 
     private PlayerInput _playerInput;
 
-    [Header("Ammo Settings")]
-    [SerializeField] private float _reloadTime = 2f;
+    public float ReloadTime { get; set; } = 2f;
 
     private bool _isReloading = false;
 
     public float ReloadTimer { get; private set; }
 
-    public float DelayBetweenShoots { get; private set; } = 1f;
+    public float DelayBetweenShoots { get; set; } = 1f;
 
     private float _delayTimer;
 
@@ -34,13 +33,14 @@ public class Weapon : MonoBehaviour
     {
         _weaponUI = GetComponent<WeaponUI>();
         _reloadBar = GameObject.Find("Reload Bar").GetComponent<ReloadBar>();
+
         _playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
     {
         CurrentAmmo = MaxAmmo;
-        _reloadBar.SetMaxReload(_reloadTime);
+        _reloadBar.SetMaxReload(ReloadTime);
         _reloadBar.SetReload(0f);
 
         _delayTimer = DelayBetweenShoots;
@@ -114,7 +114,7 @@ public class Weapon : MonoBehaviour
             return;
 
         _isReloading = true;
-        ReloadTimer = _reloadTime;      
+        ReloadTimer = ReloadTime;      
     }
 
     private void OnReloadFinished()
@@ -128,7 +128,7 @@ public class Weapon : MonoBehaviour
     private IEnumerator Reload()
     {
         _isReloading = true;
-        yield return new WaitForSeconds(_reloadTime);
+        yield return new WaitForSeconds(ReloadTime);
         CurrentAmmo = MaxAmmo;
         _isReloading = false;
     }

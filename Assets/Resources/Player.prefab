@@ -505,6 +505,8 @@ GameObject:
   - component: {fileID: 5780843268263023633}
   - component: {fileID: 766159846556593455}
   - component: {fileID: 3957307565389449288}
+  - component: {fileID: 4836258273333599111}
+  - component: {fileID: 9095144554976801039}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -744,7 +746,6 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: -2623445691234612269}
-  - {fileID: 1883803233460622397}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -838,6 +839,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66384c0b11d5e694ba18c8f9228b8f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4836258273333599111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 264eb31d5ea0dc946929d9bc80940234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &9095144554976801039
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1001 &2293266407459078456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1198,6 +1227,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8997996947095583982}
     m_Modifications:
+    - target: {fileID: 5259468846405384860, guid: ddb974d6fd9f606408a2a47a34749537,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259468846405384860, guid: ddb974d6fd9f606408a2a47a34749537,
+        type: 3}
+      propertyPath: ObservedComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 1883803233460622397}
     - target: {fileID: 5894123412281166352, guid: ddb974d6fd9f606408a2a47a34749537,
         type: 3}
       propertyPath: m_RootOrder
