@@ -9,6 +9,8 @@ public class Shop : MonoBehaviour
 
     [SerializeField] private GameObject _upgrade;
 
+    [SerializeField] private bool _shouldIncreasePrice = true;
+
     private int _costOfUpgrade;
 
     private bool _isInAShoop = false;
@@ -62,8 +64,13 @@ public class Shop : MonoBehaviour
     {
         if(_money.RemoveMoney(_costOfUpgrade))
         {
-            _costOfUpgrade += _baseCostOfUpgrade;
             _upgrade.GetComponent<IUpgrade>().Upgrade(_playerToUpgade);
+
+            if (_shouldIncreasePrice)
+            {
+                _costOfUpgrade += _baseCostOfUpgrade;
+                _shopText.text = _textToDisplay + _costOfUpgrade + "$";
+            }
         }
     }
 }

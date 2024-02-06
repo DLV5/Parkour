@@ -41,7 +41,7 @@ public class WeaponUI : MonoBehaviour
         Destroy(effect, 2f);
     }
 
-    private void UpdateAmmoText()
+    public void UpdateAmmoText()
     {
         _ammoText.text = $"{_weapon.CurrentAmmo}/{_weapon.MaxAmmo}";
     }

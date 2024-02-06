@@ -14,13 +14,7 @@ public class Weapon : MonoBehaviour
 
     private PlayerInput _playerInput;
 
-    public float ReloadTime { get; set; } = 2f;
-
     private bool _isReloading = false;
-
-    public float ReloadTimer { get; private set; }
-
-    public float DelayBetweenShoots { get; set; } = 1f;
 
     private float _delayTimer;
 
@@ -28,6 +22,13 @@ public class Weapon : MonoBehaviour
 
     [field: SerializeField] public int CurrentAmmo { get; private set; }
 
+    public float ReloadTime { get; set; } = 2f;
+
+    public float ReloadTimer { get; private set; }
+
+    public float DelayBetweenShoots { get; set; } = 1f;
+
+    public int Damage { get; set; } = 1;
 
     private void Awake()
     {
@@ -74,6 +75,12 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void IncreaseMaxAmmo(int amount)
+    {
+        MaxAmmo += amount;
+        _weaponUI.UpdateAmmoText();
+    }
+
     private void OnFireHoldOrPressed()
     {
         if (_isReloading)
@@ -101,7 +108,7 @@ public class Weapon : MonoBehaviour
 
             if (damagable != null)
             {
-                damagable.TakeDamage(1);
+                damagable.TakeDamage(Damage);
             }
         }
 

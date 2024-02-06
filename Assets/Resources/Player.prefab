@@ -794,7 +794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3995ab341919b6e4c961e8471fbc76ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _reloadTime: 2
   <MaxAmmo>k__BackingField: 5
   <CurrentAmmo>k__BackingField: 0
 --- !u!114 &5780843268263023633

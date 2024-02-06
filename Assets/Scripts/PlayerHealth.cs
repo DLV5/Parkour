@@ -56,6 +56,12 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         OnPlayerRevived?.Invoke();
     }
 
+    public void IncreaseMaxHealth(int amount)
+    {
+        _maxHealth += amount;
+        _playerUI.HealthBar.SetMaxHealthLimit(_maxHealth);
+    }
+
     private void SetHealthToMax()
     {
         _currentHealth = _maxHealth;

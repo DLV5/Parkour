@@ -85,6 +85,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2489324917397462907}
     m_Modifications:
+    - target: {fileID: 1262445387990829149, guid: a41e0c04de2937d49aa7b119350ed826,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262445387990829149, guid: a41e0c04de2937d49aa7b119350ed826,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262445387990829149, guid: a41e0c04de2937d49aa7b119350ed826,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1589667422770261936, guid: a41e0c04de2937d49aa7b119350ed826,
         type: 3}
       propertyPath: m_RootOrder
@@ -154,6 +169,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 2108936650041799946, guid: a41e0c04de2937d49aa7b119350ed826,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8164931509200513659, guid: a41e0c04de2937d49aa7b119350ed826,
         type: 3}

@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour, IDamagable
 {
     public event Action OnDamaged;
 
-    [SerializeField] private int _health = 3;
+    public static int MaxHealth { get; set; } = 3;
+    private int _health;
     [SerializeField] private int _moneyValue = 5;
 
     private GameObject[] _players;
@@ -19,8 +20,9 @@ public class Enemy : MonoBehaviour, IDamagable
 
     private void OnEnable()
     {
+        _health = MaxHealth;
         _agent = transform.parent.GetComponent<NavMeshAgent>();
-        _players = GameObject.FindGameObjectsWithTag("Player");        
+        _players = GameObject.FindGameObjectsWithTag("Player");     
     }
 
     private void Update()
@@ -31,6 +33,7 @@ public class Enemy : MonoBehaviour, IDamagable
         }
         _agent?.SetDestination(_agentTarget.transform.position);
     }
+
 
     public void TakeDamage(int damage)
     {
